@@ -21,9 +21,10 @@ if input("Any shared meals? type 'y' for Yes, any other key for No. \n>> ").lowe
     try:
         shared_meal = input("shared meal - write all names, and then the price at the end. \n"
                              "example: itay dan harel 79. press enter to end \n>> ").split()
-        for char in shared_meal:
-            
-        names = [x for x in shared_meals[:-1] if x.isalpha()]
+        names = [x for x in shared_meal if x.isalpha()]
+        prices = [x for x in shared_meal if x.isdigit()]
+        
+total_meal_price = lambda prices: 
         shared_price = ceil(int(shared_meals[-1])/len(names))
         for name in names:
             prices_and_names[name] += shared_price
