@@ -3,37 +3,46 @@ from math import ceil
 
 
 # getting discount percentage from user
-while True:
-    try:
-        discount_percentage = int(input("Discount percentage: "))
-        if 0 <= discount_percentage < 100:
-            break
-        else:
+def getting_discount_from_user():
+    while True:
+        try:
+            discount_percentage = int(input("Discount percentage: "))
+            if 0 <= discount_percentage < 100:
+                break
+            else:
+                print("error. try again.")
+        except ValueError:
             print("error. try again.")
-    except ValueError:
-        print("error. try again.")
-    discount_percentage_multiplier = 1 - discount_percentage/100
+        discount_percentage_multiplier = 1 - discount_percentage/100
+    return discount_percentage_multiplier
 
 
 # splitting shared meals between diners
-prices_and_names = defaultdict(int)
-if input("Any shared meals? type 'y' for Yes, any other key for No. \n>> ").lower() == 'y':
-    try:
-        shared_meal = input("shared meal - write all names, and then the price at the end. \n"
-                             "example: itay dan harel 79. press enter to end \n>> ").split()
-        names = [x for x in shared_meal if x.isalpha()]
-        prices = [x for x in shared_meal if x.isdigit()]
+def get_shared_meals(defaultdict_of_names_and_prices):
+    if input("Any shared meals? type 'y' for Yes, any other key for No. \n>> ").lower() == 'y':
+        while True:
+            shared_meals = input("shared meals - write all names who shared and prices of the meals that were shared, no matter the order. \n"
+                             "example: 56 itay dan harel 79. press enter to end \n>> ").split()
+            names = [x for x in shared_meals if x.isalpha()]
+            prices = [int(x) for x in shared_meals if x.isdigit()]
+            total_meals_price = 0
+            total_meals_price = lambda prices: total_meal_price + x for x in prices
+            shared_price = ceil(total_meals_price/len(names))
+            for name in names:
+                defaultdict_of_names_and_prices[name] += shared_price
+            if input("Any more shared meals? type 'y' for Yes, any other key for No. \n>> ").lower() != 'y':
+                break
+            print(defaultdict_of_names_and_prices.items())
+            return defaultdict_of_names_and_prices
+
+ def get_individual_meal(defaultdict_of_names_and_prices):
+    individual_meals = input("individual_meals - write the name of the dinner and all the prices of all the things he ordered. \n"
+                             "press 'd' and enter to end. \n>> "
+    while individual_meals != 'd':
         
-total_meal_price = lambda prices: 
-        shared_price = ceil(int(shared_meals[-1])/len(names))
-        for name in names:
-            prices_and_names[name] += shared_price
-        print(prices_and_names.items())
-    except ValueError:
-        print("value error")
-
-
-
+        
+        
+        
 prices_before_discount = input("price before discount - name + price: ").split()
 for i in range(len(prices_before_discount)):
     if i%2 != 1:
