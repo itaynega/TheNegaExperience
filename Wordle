@@ -1,0 +1,69 @@
+from simple_colors import *
+import enchant
+
+
+d = enchant.Dict('en_US')
+
+
+board = [['+', '+', '+', '+', '+'],
+         ['+', '+', '+', '+', '+'],
+         ['+', '+', '+', '+', '+'],
+         ['+', '+', '+', '+', '+'],
+         ['+', '+', '+', '+', '+']]
+
+
+def print_board(board_given):
+    for line in board:
+        for letter in line:
+            print(letter, end=' ')
+        print()
+
+
+def isword(word):
+    counter = 0
+    for letter in word:
+        if letter.isalpha():
+            pass
+        else:
+            counter +=1
+    if counter == 0:
+        return True
+    else:
+        return False
+
+print_board(board)
+
+
+secretWord = ''  # write word here
+
+# 5 letters
+# only letters
+
+
+keep_game = True
+counter = 0
+for i in range(len(board)):
+    if keep_game:
+        counter += 1
+        while True:
+            userWord = input(">> ").upper()
+
+            if len(userWord) == 5 and isword(userWord):
+                if d.check(userWord):
+                    break
+        if userWord == secretWord:
+            keep_game = False
+        userWord = list(userWord)
+        for n in range(len(userWord)):
+            if userWord[n] in secretWord:
+                if userWord[n] == secretWord[n]:
+                    userWord[n] = green(userWord[n])
+                else:
+                    userWord[n] = blue(userWord[n])
+        board[i] = userWord
+        print_board(board)
+
+if not keep_game:
+    print(f"You won! {counter}/{len(board)}")
+else:
+    print("You lost!")
